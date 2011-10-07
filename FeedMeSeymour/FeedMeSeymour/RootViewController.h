@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "TwitterClient.h"
 
 @interface RootViewController : UITableViewController
+
+@property (nonatomic, retain) TwitterClient* _twitterClient;
 
 @end

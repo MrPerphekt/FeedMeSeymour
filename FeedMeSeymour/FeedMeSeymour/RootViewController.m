@@ -10,10 +10,14 @@
 
 @implementation RootViewController
 
+@synthesize _twitterClient;
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+
+    _twitterClient = [[TwitterClient alloc] init];
+    [_twitterClient retain];        
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -52,7 +56,13 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 0;
+    return 3;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section 
+{
+    // The header for the section is the region name -- get this from the region at the section index.
+    return @"Tweets";
 }
 
 // Customize the appearance of table view cells.
@@ -61,8 +71,12 @@
     static NSString *CellIdentifier = @"Cell";
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+    if (cell == nil) 
+    {
+        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier] autorelease];
+        
+        cell.textLabel.text = @"Cell 1";
+        cell.detailTextLabel.text = @"Detail";
     }
 
     // Configure the cell.
@@ -133,12 +147,15 @@
 {
     [super viewDidUnload];
 
+    _twitterClient = nil;
+    
     // Relinquish ownership of anything that can be recreated in viewDidLoad or on demand.
     // For example: self.myOutlet = nil;
 }
 
 - (void)dealloc
 {
+    [_twitterClient release];
     [super dealloc];
 }
 

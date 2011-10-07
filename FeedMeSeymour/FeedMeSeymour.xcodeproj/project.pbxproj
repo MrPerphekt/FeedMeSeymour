@@ -16,6 +16,7 @@
 		9ECBE168143A939B00A00A25 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9ECBE166143A939B00A00A25 /* MainWindow.xib */; };
 		9ECBE16B143A939B00A00A25 /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ECBE16A143A939B00A00A25 /* RootViewController.m */; };
 		9ECBE16E143A939B00A00A25 /* RootViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9ECBE16C143A939B00A00A25 /* RootViewController.xib */; };
+		9ECBE178143FB3DC00A00A25 /* TwitterClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ECBE177143FB3DC00A00A25 /* TwitterClient.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +34,8 @@
 		9ECBE169143A939B00A00A25 /* RootViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RootViewController.h; sourceTree = "<group>"; };
 		9ECBE16A143A939B00A00A25 /* RootViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RootViewController.m; sourceTree = "<group>"; };
 		9ECBE16D143A939B00A00A25 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/RootViewController.xib; sourceTree = "<group>"; };
+		9ECBE176143FB3DC00A00A25 /* TwitterClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TwitterClient.h; sourceTree = "<group>"; };
+		9ECBE177143FB3DC00A00A25 /* TwitterClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TwitterClient.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +82,8 @@
 		9ECBE15A143A939B00A00A25 /* FeedMeSeymour */ = {
 			isa = PBXGroup;
 			children = (
+				9ECBE175143A96BE00A00A25 /* Web */,
+				9ECBE174143A96AF00A00A25 /* Twitter */,
 				9ECBE163143A939B00A00A25 /* FeedMeSeymourAppDelegate.h */,
 				9ECBE164143A939B00A00A25 /* FeedMeSeymourAppDelegate.m */,
 				9ECBE166143A939B00A00A25 /* MainWindow.xib */,
@@ -99,6 +104,22 @@
 				9ECBE162143A939B00A00A25 /* FeedMeSeymour-Prefix.pch */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		9ECBE174143A96AF00A00A25 /* Twitter */ = {
+			isa = PBXGroup;
+			children = (
+				9ECBE176143FB3DC00A00A25 /* TwitterClient.h */,
+				9ECBE177143FB3DC00A00A25 /* TwitterClient.m */,
+			);
+			name = Twitter;
+			sourceTree = "<group>";
+		};
+		9ECBE175143A96BE00A00A25 /* Web */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Web;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -164,6 +185,7 @@
 				9ECBE161143A939B00A00A25 /* main.m in Sources */,
 				9ECBE165143A939B00A00A25 /* FeedMeSeymourAppDelegate.m in Sources */,
 				9ECBE16B143A939B00A00A25 /* RootViewController.m in Sources */,
+				9ECBE178143FB3DC00A00A25 /* TwitterClient.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
