@@ -10,7 +10,12 @@
 #import "TwitterClient.h"
 
 @interface RootViewController : UITableViewController
+{
+    NSMutableArray* tweets;
+}
 
-@property (nonatomic, retain) TwitterClient* _twitterClient;
+@property (nonatomic, retain) TwitterClient* twitterClient;
+
+-(void)tweetsReceived:(NSNotification*)tweetsReceived;
 
 @end

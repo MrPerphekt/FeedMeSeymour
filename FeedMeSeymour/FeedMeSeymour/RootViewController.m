@@ -10,14 +10,21 @@
 
 @implementation RootViewController
 
-@synthesize _twitterClient;
+@synthesize twitterClient;
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 
-    _twitterClient = [[TwitterClient alloc] init];
-    [_twitterClient retain];        
+    tweets = [[NSMutableArray alloc] init];
+    [tweets retain];
+    
+    twitterClient = [[TwitterClient alloc] init];
+    [twitterClient retain];        
+        
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tweetsReceived:) name:[twitterClient tweetsReceivedEventName] object:nil ];
+    
+    [twitterClient searchTwitter:@"San%20Diego%20Chargers" resultsPerPage:25];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -56,13 +63,13 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 3;
+    return [tweets count];
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section 
 {
     // The header for the section is the region name -- get this from the region at the section index.
-    return @"Tweets";
+    return @"Twitter Search";
 }
 
 // Customize the appearance of table view cells.
@@ -74,9 +81,20 @@
     if (cell == nil) 
     {
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier] autorelease];
+                
+        NSDictionary *tweet = [tweets objectAtIndex:[indexPath row]];  
+        cell.textLabel.text = [tweet objectForKey:@"text"];  
+        cell.textLabel.adjustsFontSizeToFitWidth = NO;  
+        cell.textLabel.font = [UIFont systemFontOfSize:12];  
+        cell.textLabel.numberOfLines = 4;  
+        cell.textLabel.lineBreakMode = UILineBreakModeCharacterWrap;  
         
-        cell.textLabel.text = @"Cell 1";
-        cell.detailTextLabel.text = @"Detail";
+        cell.detailTextLabel.text = [tweet objectForKey:@"from_user"];  
+        
+        NSURL *url = [NSURL URLWithString:[tweet objectForKey:@"profile_image_url"]];  
+        NSData *data = [NSData dataWithContentsOfURL:url];  
+        cell.imageView.image = [UIImage imageWithData:data];  
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;         
     }
 
     // Configure the cell.
@@ -146,16 +164,31 @@
 - (void)viewDidUnload
 {
     [super viewDidUnload];
-
-    _twitterClient = nil;
     
     // Relinquish ownership of anything that can be recreated in viewDidLoad or on demand.
     // For example: self.myOutlet = nil;
 }
 
+-(void)tweetsReceived:(NSNotification*)tweetsReceived
+{
+    for (int i = 0; i < [[tweetsReceived object] count]; i++)
+    {
+        [tweets addObject:[[tweetsReceived object] objectAtIndex:i]];
+    }    
+    
+    [[self tableView] reloadData];
+    
+    NSLog(@"Data Reloaded");
+}
+
 - (void)dealloc
 {
-    [_twitterClient release];
+    [twitterClient release];
+    twitterClient = nil;
+    
+    [tweets release];
+    tweets = nil;
+    
     [super dealloc];
 }
 

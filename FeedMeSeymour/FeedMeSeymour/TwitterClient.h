@@ -7,7 +7,16 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "WebClient.h"
 
-@interface TwitterClient : NSObject
+@interface TwitterClient : NSObject<UIApplicationDelegate>
+{
+    WebClient* _webClient;
+}
+
+@property (nonatomic, retain) NSString* tweetsReceivedEventName;
+
+-(void)dataReceived: (NSNotification *) notification;
+-(void)searchTwitter:(NSString*)searchCriteria resultsPerPage:(int)resultsPerPage;
 
 @end
